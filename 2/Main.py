@@ -13,9 +13,7 @@ class Rules:
     
     def Validate1(self, input):
         nb = len(re.findall(self.letter, input))
-        if nb >= self.min and nb <= self.max:
-            return True
-        return False
+        return nb >= self.min and nb <= self.max
     
     def CheckLetter(self, pos, input):
         i = pos - 1 # no index 0

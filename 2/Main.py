@@ -6,9 +6,8 @@ fileLineRe = re.compile('(?P<min>[0-9]+)\s*\-\s*(?P<max>[0-9]+)\s*(?P<letter>[a-
 
 class Rules:
     def __init__(self, count_min, count_max, letter):
-        # TODO godboutj 2020-12-02, check if min max can be inverted
-        self.min = count_min
-        self.max = count_max
+        self.min = min(count_min, count_max)
+        self.max = max(count_min, count_max)
         self.letter = letter
     
     def Validate1(self, input):

@@ -4,7 +4,7 @@ from functools import reduce
 
 class DataGrid():
     def __init__(self):
-        # Row frist
+        # Row first
         self.data = []
         self.LoadInput()
     

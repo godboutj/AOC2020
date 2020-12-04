@@ -11,6 +11,13 @@ class DataCheck():
         self.data = []
         self.LoadInput()
     
+    def ParseData(self, cumul_data):
+        matches = fileLineRe.findall(cumul_data)
+        info = {}
+        for m in matches:
+            info[m[0]] = m[1]
+        self.data.append(info)
+    
     def LoadInput(self):
         with open('input.txt') as inputFile:
             cumul_data = ""
@@ -18,16 +25,13 @@ class DataCheck():
                 if len(line.rstrip()) > 0:
                     cumul_data = cumul_data + " " + line.rstrip()
                 else:
-                    matches = fileLineRe.findall(cumul_data)
-                    info = {}
-                    for m in matches:
-                        info[m[0]] = m[1]
-                    self.data.append(info)
+                    self.ParseData(cumul_data)
                     cumul_data = ""
+            self.ParseData(cumul_data)
     
     def CheckData(self, entry):
         # cid is ignored
-        return all(key in entry for key in ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"])
+        return all(key in entry.keys() for key in ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"])
         
     def RunTest1(self):
         print("Test 1 count: ", len(list(filter(lambda x: self.CheckData(x), self.data))))
